@@ -1,1 +1,1 @@
-from .checker import magicCheckOn
+from .checker import checkit
