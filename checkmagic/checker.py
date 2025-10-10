@@ -4,7 +4,7 @@ from IPython.display import display, HTML
 from IPython import get_ipython
 
 def _fetch_inouts(hw_num):
-    url = f"https://github.com/litvinanna/intro_to_prog/raw/refs/heads/main/inouts{hw_num}.mp"
+    url = f"https://github.com/litvinanna/intro_to_prog/raw/refs/heads/main/inouts/inouts{hw_num}.mp"
     resp = requests.get(url)
     resp.raise_for_status()
     return pickle.loads(resp.content)
