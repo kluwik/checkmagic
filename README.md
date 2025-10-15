@@ -11,5 +11,5 @@ pip install git+https://github.com/kluwik/checkmagic.git
 ## Upgrade
 
 ```bash
-pip install --force-reinstall -U git+https://github.com/kluwik/checkmagic.git
+pip install --no-deps --force-reinstall git+https://github.com/kluwik/checkmagic.git
 ```
