@@ -3,7 +3,7 @@ import sys
 from pathlib import Path
 import shutil
 
-def releaseNotebook(ipynb_path, output_path=None):
+def releaseit(ipynb_path, output_path=None):
   
     ipynb_path = Path(ipynb_path)
 
@@ -42,4 +42,4 @@ if __name__ == "__main__":
 
     ipynb_file = sys.argv[1]
     output_file = sys.argv[2] if len(sys.argv) > 2 else None
-    releaseNotebook(ipynb_file, output_file)
+    releaseit(ipynb_file, output_file)
