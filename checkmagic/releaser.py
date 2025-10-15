@@ -11,7 +11,7 @@ def releaseNotebook(ipynb_path, output_path=None):
         print(f"File not found: {ipynb_path}")
         sys.exit(1)
 
-    # Create backup file (my_notebook_backup.ipynb)
+    # Create backup file 
     backup_path = ipynb_path.with_name(f"{ipynb_path.stem}_backup{ipynb_path.suffix}")
     shutil.copy2(ipynb_path, backup_path)
     print(f"Backup created: {backup_path}")
