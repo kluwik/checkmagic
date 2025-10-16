@@ -25,18 +25,16 @@ def editMeta(ipynb_path, output_path=None, TA=False):
         cell.setdefault("metadata", {})
 
         if TA:
-            # TA=True: make all cells editable and deletable
             cell["metadata"]["editable"] = True
             cell["metadata"]["deletable"] = True
         else:
-            # TA=False: make "checkit" or "assert" cells not editable and not deletable
             src = "".join(cell.get("source", [])).lower()
             if "checkit" in src or "assert" in src:
                 cell["metadata"]["editable"] = False
                 cell["metadata"]["deletable"] = False
             else:
                 cell["metadata"]["editable"] = True
-                cell["metadata"]["deletable"] = True
+                cell["metadata"]["deletable"] = False
 
     # Save
     with open(output_path, "w", encoding="utf-8") as f:
