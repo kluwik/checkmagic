@@ -1,2 +1,2 @@
 from .checker import checkit
-from .releaser import releaseit
+from .editmeta import editMeta
