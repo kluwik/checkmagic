@@ -3,11 +3,16 @@ from contextlib import redirect_stdout
 from IPython.display import display, HTML
 from IPython import get_ipython
 
-def _fetch_inouts(hw_num):
-    url = f"https://github.com/litvinanna/intro_to_prog/raw/refs/heads/main/inouts/inouts{hw_num}.mp"
-    resp = requests.get(url)
-    resp.raise_for_status()
-    return pickle.loads(resp.content)
+def _fetch_inouts(hw_num, inouts_file):
+    if inouts_file:
+      with open(inouts_file, "rb") as f:
+        return pickle.load(f)
+    else:
+      url = f"https://github.com/litvinanna/intro_to_prog/raw/refs/heads/main/inouts/inouts{hw_num}.mp"
+      resp = requests.get(url)
+      resp.raise_for_status()
+      return pickle.loads(resp.content)
+
 
 def _get_student_code(solution_cell_index=None):
     ip = get_ipython()
@@ -39,11 +44,11 @@ def _make_assignments(vrs, test_input):
         return "\n".join(f"{name} = {repr(value)}" for name, value in zip(varnames, it))
 
 
-def checkit(hw_num, task_name, solution_cell_index=None):
+def checkit(hw_num, task_name, solution_cell_index=None, inouts_file=None):
     """Run all tests from inouts file against student's code using exec() and display styled HTML results."""
     # Load tests
     try:
-        inouts = _fetch_inouts(hw_num)
+        inouts = _fetch_inouts(hw_num, inouts_file)
     except Exception as e:
         display(HTML(f"<p style='color:red;'>Failed to load inouts file: {e}</p>"))
         return
@@ -98,7 +103,7 @@ def checkit(hw_num, task_name, solution_cell_index=None):
             )
         else:
             results_html.append(
-                f"<p style='background-color:black; color:white; padding:6px; border-radius:6px; margin:2px 0;'>Test {i}/{total} failed.</p>"
+                f"<p style='background-color:black; color:white; padding:6px; border-radius:6px; margin:2px 0;'>Test {i}/{total} failed.<br>Input: {test_input}<br>Expected: {expected}<br>Got: {output}</p>"
             )
 
     display(HTML("".join(results_html)))
